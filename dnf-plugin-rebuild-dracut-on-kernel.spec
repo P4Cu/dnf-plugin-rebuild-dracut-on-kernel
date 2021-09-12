@@ -5,7 +5,9 @@ Summary: Plugin for dnf that triggers immediate rebuild of dracut/akmods after i
 License: ASL 2.0
 URL: https://github.com/P4Cu/dnf-plugin-rebuild-dracut-on-kernel
 BuildArch: noarch
+
 Requires: dnf
+BuildRequires: python3-devel
 
 Source0: %{name}-%{version}.tar.gz
 
@@ -15,21 +17,18 @@ over HDMI on boot.  Without run of akmods/dracut new initrd image will not have 
 module and you won't be able to display over HDMI till reboot (annoying).
 
 %prep
-%autosetup
-
-%build
 
 %install
-mkdir -p %{buildroot}%{_libdir}/python3.9/site-packages/dnf-plugins/
-cp -a dnf-plugin-rebuild-dracut-on-kernel.py %{buildroot}${_libdir}/python3.9/site-packages/dnf-plugins/
+mkdir -p %{buildroot}%{python3_sitelib}/dnf-plugins/
+cp -a dnf-plugin-rebuild-dracut-on-kernel.py %{buildroot}%{python3_sitelib}/dnf-plugins/dnf-plugin-rebuild-dracut-on-kernel.py
 
 %check
 
 %files
-%{_libdir}/python3.9/site-packages/dnf-plugins/dnf-plugin-rebuild-dracut-on-kernel.py
+%{python3_sitelib}/dnf-plugins/
 
 %changelog
-* Sun Oct 12 2021 Andrzej Pacanowski <Andrzej.Pacanowski@gmail.com> -
+* Sun Sep 12 2021 Andrzej Pacanowski <Andrzej.Pacanowski@gmail.com> -
 - Initial implementation based on what I'm using on my machines.
 
 %post
